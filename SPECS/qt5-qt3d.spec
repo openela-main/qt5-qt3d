@@ -6,7 +6,7 @@
 
 Summary: Qt5 - Qt3D QML bindings and C++ APIs
 Name:    qt5-%{qt_module}
-Version: 5.15.3
+Version: 5.15.9
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -21,11 +21,6 @@ BuildRequires: make
 BuildRequires: qt5-rpm-macros >= %{version}
 BuildRequires: qt5-qtbase-static >= %{version}
 BuildRequires: qt5-qtbase-private-devel
-#libQt53DRender.so.5(Qt_5_PRIVATE_API)(64bit)
-#libQt5Core.so.5(Qt_5_PRIVATE_API)(64bit)
-#libQt5Gui.so.5(Qt_5_PRIVATE_API)(64bit)
-#libQt5Qml.so.5(Qt_5_PRIVATE_API)(64bit)
-#libQt5Quick.so.5(Qt_5_PRIVATE_API)(64bit)
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 BuildRequires: qt5-qtdeclarative-devel
 BuildRequires: qt5-qtimageformats
@@ -207,6 +202,10 @@ popd
 %endif
 
 %changelog
+* Tue Apr 18 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
+- 5.15.9
+  Resolves: bz#2175729
+
 * Mon Mar 28 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.3-1
 - 5.15.3
   Resolves: bz#2061356
