@@ -7,7 +7,7 @@
 Summary: Qt5 - Qt3D QML bindings and C++ APIs
 Name:    qt5-%{qt_module}
 Version: 5.15.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://doc.qt.io/qt-5/licensing.html
@@ -16,6 +16,10 @@ Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
 Source1: qt3dcore-config-multilib_p.h
+
+# Assimp CVEs
+Patch0:  assimp-CVE-2025-3158.patch
+Patch1:  assimp-CVE-2025-3159.patch
 
 BuildRequires: make
 BuildRequires: qt5-rpm-macros >= %{version}
@@ -61,6 +65,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %prep
 %setup -q -n %{qt_module}-everywhere-src-%{version}
 
+%patch -P0 -p1 -b .assimp-CVE-2025-3158
+%patch -P1 -p1 -b .assimp-CVE-2025-3159
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues
@@ -202,6 +208,12 @@ popd
 %endif
 
 %changelog
+* Wed Jul 23 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.9-2
+- Assimp: Fix heap-based overflow in Assimp::LWO::AnimResolver::UpdateAnimRangeSetup
+  Resolves: RHEL-105000
+- Assimp: Fix heap-based overflow in Assimp::ASE::Parser::ParseLV4MeshBonesVertices
+  Resolves: RHEL-105005
+
 * Tue Apr 18 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
 - 5.15.9
   Resolves: bz#2175729
