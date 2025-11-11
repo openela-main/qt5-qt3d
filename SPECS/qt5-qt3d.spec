@@ -211,13 +211,13 @@ popd
 %changelog
 * Wed Nov 05 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.9-2.1
 - Assimp: Fix heap-based overflow in Q3DLoader::InternReadFile
-  Resolves: RHEL-120988
+  Resolves: RHEL-120986
 
 * Wed Jul 23 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.9-2
 - Assimp: Fix heap-based overflow in Assimp::LWO::AnimResolver::UpdateAnimRangeSetup
-  Resolves: RHEL-105000
+  Resolves: RHEL-104999
 - Assimp: Fix heap-based overflow in Assimp::ASE::Parser::ParseLV4MeshBonesVertices
-  Resolves: RHEL-105005
+  Resolves: RHEL-105004
 
 * Tue Apr 18 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
 - 5.15.9
