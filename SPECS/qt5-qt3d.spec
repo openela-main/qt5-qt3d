@@ -7,7 +7,7 @@
 Summary: Qt5 - Qt3D QML bindings and C++ APIs
 Name:    qt5-%{qt_module}
 Version: 5.15.9
-Release: 2%{?dist}.1
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://doc.qt.io/qt-5/licensing.html
@@ -209,9 +209,9 @@ popd
 %endif
 
 %changelog
-* Wed Nov 05 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.9-2.1
+* Wed Nov 05 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.9-3
 - Assimp: Fix heap-based overflow in Q3DLoader::InternReadFile
-  Resolves: RHEL-120986
+  Resolves: RHEL-120985
 
 * Wed Jul 23 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.9-2
 - Assimp: Fix heap-based overflow in Assimp::LWO::AnimResolver::UpdateAnimRangeSetup
