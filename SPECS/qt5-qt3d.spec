@@ -7,7 +7,7 @@
 Summary: Qt5 - Qt3D QML bindings and C++ APIs
 Name:    qt5-%{qt_module}
 Version: 5.15.9
-Release: 3%{?dist}
+Release: 3%{?dist}.1
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://doc.qt.io/qt-5/licensing.html
@@ -21,6 +21,10 @@ Source1: qt3dcore-config-multilib_p.h
 Patch0:  assimp-CVE-2025-3158.patch
 Patch1:  assimp-CVE-2025-3159.patch
 Patch2:  assimp-CVE-2025-120985.patch
+
+# CVE-2026-111487
+# https://github.com/qt/qt3d/commit/1eefe29327c5d7dd6020c5dd0735eb8e5e798f05
+Patch3:  qt3d-assimp-plugin-handle-morph-targets-with-mixed-attributes.patch
 
 BuildRequires: make
 BuildRequires: qt5-rpm-macros >= %{version}
@@ -68,6 +72,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %patch -P0 -p1 -b .assimp-CVE-2025-3158
 %patch -P1 -p1 -b .assimp-CVE-2025-3159
+%patch -P2 -p1 -b .assimp-CVE-2025-120985
+%patch -P3 -p1 -b .CVE-2026-111487
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues
@@ -209,6 +215,10 @@ popd
 %endif
 
 %changelog
+* Thu Nov 05 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 5.15.9-3.1
+- CVE-2026-111487 qt5-qt3d: qt: arbitrary code execution via out-of-bounds write in Qt3D assimp plugin
+  Resolves: RHEL-301958
+
 * Wed Nov 05 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.9-3
 - Assimp: Fix heap-based overflow in Q3DLoader::InternReadFile
   Resolves: RHEL-120985
