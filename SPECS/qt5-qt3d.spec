@@ -7,7 +7,7 @@
 Summary: Qt5 - Qt3D QML bindings and C++ APIs
 Name:    qt5-%{qt_module}
 Version: 5.15.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://doc.qt.io/qt-5/licensing.html
@@ -16,6 +16,10 @@ Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
 Source1: qt3dcore-config-multilib_p.h
+
+# CVE-2026-111487
+# https://github.com/qt/qt3d/commit/1eefe29327c5d7dd6020c5dd0735eb8e5e798f05
+Patch0:  qt3d-assimp-plugin-handle-morph-targets-with-mixed-attributes.patch
 
 BuildRequires: qt5-rpm-macros >= %{version}
 BuildRequires: qt5-qtbase-static >= %{version}
@@ -62,6 +66,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %setup -q -n %{qt_module}-everywhere-src-%{version}
+
+%patch -P0 -p1 -b .CVE-2026-111487
 
 
 %build
@@ -209,6 +215,10 @@ popd
 
 
 %changelog
+* Wed Nov 04 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 5.15.3-2
+- CVE-2026-111487 qt5-qt3d: qt: arbitrary code execution via out-of-bounds write in Qt3D assimp plugin
+  Resolves: RHEL-301242
+
 * Mon Mar 28 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.3-1
 - 5.15.3
   Resolves: bz#2061381
